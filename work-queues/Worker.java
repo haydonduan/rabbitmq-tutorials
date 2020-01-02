@@ -5,7 +5,7 @@ import com.rabbitmq.client.DeliverCallback;
 
 public class Worker {
 
-    private final static String QUEUE_NAME = "work-queues";
+    private final static String QUEUE_NAME = "test-durable";
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -13,7 +13,7 @@ public class Worker {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        channel.queueDeclare(QUEUE_NAME, true, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
@@ -25,9 +25,10 @@ public class Worker {
 
             } finally {
                 System.out.println(" [x] Done");
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
         };
-        boolean autoAck = true; // acknowledgment is covered below
+        boolean autoAck = false; // acknowledgment is covered below
         channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback, consumerTag -> {
         });
     }
