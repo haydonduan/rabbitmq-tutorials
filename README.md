@@ -36,3 +36,14 @@
 #### 4. exchange type 为direct
 ![direct](./images/direct.png)
 ##### 一个exchange上可以绑定多个queue，exchange的每个binding name要和queue上的binding key要一值才可以分发
+
+#### 5. exchange type为topic
+![direct](./images/topic.png)
+> 引用自[官网](https://www.rabbitmq.com/tutorials/tutorial-five-java.html)的有趣解释：
+>
+> Q1接受的是所有橘色的动物
+>
+> Q2接受的是所有的兔子or比较懒的动物
+>
+> // * 为只能匹配一个字符, # 匹配0或多个字符
+
