@@ -29,3 +29,7 @@
     - channel.basicPublish("", "hello", null, message.getBytes());
         -之前这个方法的第一个参数时exchange，但是这里是空的，那就是必须制定queue的名字才能使用该exchange进行转发
         
+        
+    - exchange type 为fanout
+        - 需要执行exchange name，但是不用执行queue名字，因为是广播机制，所以会看到没有指定queue,就算填上也没啥用
+        - 如果指定的queue就成了传统的队列，exchange 就会轮流给不同的queue发送消息了，如上章一样

@@ -13,6 +13,8 @@ public class ReceiveLogs {
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        // 关键点！不用声明具体名字的queue，因为fanout类型的exchange其实也不关心
+        // 如果指定的queue就成了传统的队列，exchange 就会轮流给不同的queue发送消息了，如上章一样
         String queueName = channel.queueDeclare().getQueue();
         channel.queueBind(queueName, EXCHANGE_NAME, "");
 
