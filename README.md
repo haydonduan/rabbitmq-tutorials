@@ -22,14 +22,17 @@
 >  java -cp .:../lib/amqp-client-5.7.1.jar:../lib/slf4j-api-1.7.26.jar:../lib/slf4j-simple-1.7.26.jar Worker
 
 #### 笔记
-    - work-queues
-        -  启动多个worker，那么rabbitmq会去给每个worker，按照顺序发消息
-        -  channel.setQoS(1) 目前感觉用处不大？？
+#### 1. work-queues
+##### 启动多个worker，那么rabbitmq会去给每个worker，按照顺序发消息
+##### channel.setQoS(1) 目前感觉用处不大？？
         
-    - channel.basicPublish("", "hello", null, message.getBytes());
-        -之前这个方法的第一个参数时exchange，但是这里是空的，那就是必须制定queue的名字才能使用该exchange进行转发
+#### 2. channel.basicPublish("", "hello", null, message.getBytes());
+##### 之前这个方法的第一个参数时exchange，但是这里是空的，那就是必须制定queue的名字才能使用该exchange进行转发
         
+#### 3. exchange type 为fanout
+##### 需要执行exchange name，但是不用执行queue名字，因为是广播机制，所以会看到没有指定queue,就算填上也没啥用
+##### 如果指定的queue就成了传统的队列，exchange 就会轮流给不同的queue发送消息了，如上章一样
         
-    - exchange type 为fanout
-        - 需要执行exchange name，但是不用执行queue名字，因为是广播机制，所以会看到没有指定queue,就算填上也没啥用
-        - 如果指定的queue就成了传统的队列，exchange 就会轮流给不同的queue发送消息了，如上章一样
+#### 4. exchange type 为direct
+![direct](./images/direct.png)
+##### 一个exchange上可以绑定多个queue，exchange的每个binding name要和queue上的binding key要一值才可以分发
