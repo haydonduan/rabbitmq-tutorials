@@ -1,6 +1,6 @@
 package com.owl.exchange.type.direct;
 
-public class Constants {
+public class DirectConstants {
 
     public static final String DIRECT_QUEUE_NAME = "DirectQueue";
 
