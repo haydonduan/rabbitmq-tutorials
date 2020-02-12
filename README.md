@@ -35,7 +35,7 @@
         
 #### 4. exchange type 为direct
 ![direct](./images/direct.png)
-##### 一个exchange上可以绑定多个queue，exchange的每个binding name要和queue上的binding key要一值才可以分发
+##### 一个exchange上可以绑定多个queue，exchange的每个binding name要和queue上的binding key要一致才可以分发
 
 #### 5. exchange type为topic
 ![direct](./images/topic.png)
